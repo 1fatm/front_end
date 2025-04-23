@@ -105,7 +105,7 @@ const AccueilPage = () => {
   return (
     <DashboardLayout>
       <SectionTitle>
-        <FaHome /> Produits locaux du Sénégal
+        <FaHome /> Tableau de bord
       </SectionTitle>
       
       <StatsGrid>
@@ -119,15 +119,15 @@ const AccueilPage = () => {
       </StatsGrid>
       
       <SectionTitle>
-        <MdLocalOffer /> Produits locaux en promotion
+        <MdLocalOffer />Nos  Produits 
       </SectionTitle>
-      <PromoBanner text="Découvrez les produits 100% sénégalais - Prix réduits pour soutenir l'agriculture locale !" />
+      
       <ProductGrid products={promoProducts} promo={true} />
       
       <SectionTitle>
         <FaSearch /> Nouveaux produits agricoles
       </SectionTitle>
-      <SearchBar placeholder="Rechercher des produits sénégalais (riz, mangue, arachide...)" />
+      
       <ProductGrid products={newProducts} />
     </DashboardLayout>
   );

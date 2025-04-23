@@ -205,11 +205,7 @@ const ProduitsPage = () => {
   const sortedProduits = [...filteredProduits].sort((a, b) => {
     if (sortBy === 'prix') return parseInt(a.prix) - parseInt(b.prix);
     if (sortBy === 'popularite') return b.rating - a.rating;
-    if (sortBy === 'promotions') {
-      const aHasPromo = a.promotion ? 1 : 0;
-      const bHasPromo = b.promotion ? 1 : 0;
-      return bHasPromo - aHasPromo;
-    }
+   
     return 0;
   });
 
@@ -231,16 +227,14 @@ const ProduitsPage = () => {
             onChange={(e) => setSelectedCategory(e.target.value)}
           >
             <option value="all">Toutes catégories</option>
-            <option value="casque">Casques</option>
-            <option value="gants">Gants</option>
-            <option value="lunettes">Lunettes</option>
+            
           </Select>
 
           <Select onChange={(e) => setSortBy(e.target.value)}>
             <option value="none">Trier par...</option>
             <option value="prix">Prix croissant</option>
             <option value="popularite">Popularité</option>
-            <option value="promotions">Promotions</option>
+          
           </Select>
         </div>
       </ControlBar>

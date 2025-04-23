@@ -16,6 +16,24 @@ import PageClientPanier from './pages/client/panier/PanierPage'
 import PageClientProduitsPrmo from './pages/client/produits/Promotions'
 import PageClientHistorique from './pages/client/commande/Historique'
 import PageClientCompte from './pages/client/compte/ComptePage'
+import PageVendeurP from './pages/vendeur/accueil/Accueil'
+
+import PageVendeurPay from './components/seller/Payments/RevenueStats'
+
+import PageVendeurProduitsForm from './pages/vendeur/Produits/ProductForm'
+import PageVendeurProduits from './pages/vendeur/Produits/ProductList'
+import PageVendeurCommandes from './pages/vendeur/Commandes/CommandeList'
+import PageVendeurCommandesDetail from './pages/vendeur/Commandes/CommandeDetail'
+import PageVendeurCommandesBonLivraison from './pages/vendeur/Commandes/BonLivraison'
+import PageVendeurCommandesFacture from './pages/vendeur/Commandes/Facture'
+import PageVendeurSettings from './pages/vendeur/Compte/AccountSettings'
+import PageVendeurRevenue from './pages/vendeur/paiment/RevenueStats'
+import PageVendeurStatistique from './pages/vendeur/paiment/WithdrawalForm'
+import PageVendeurAvisetSupport from './pages/vendeur/AvisetSupport/SupportDashboard'
+import PageVendeurAvisetSupportR from './pages/vendeur/AvisetSupport/ReviewModal'
+
+
+
 
 
 
@@ -44,11 +62,22 @@ export default function App() {
 <Route path="/client/panier" element={<PageClientPanier />} />
 <Route path="/client/produits/:category/:id/avis" element={<AvisPage />} />
 <Route path="/client/compte" element={< PageClientCompte/>} />
+<Route path="/vendeur" element={<PageVendeurP/>} />
+<Route path="/vendeur/produits" element={<PageVendeurProduits/>} />
+<Route path="/vendeur/produits/ajouter" element={<PageVendeurProduitsForm/>} />
+<Route path="/vendeur/commande" element={<PageVendeurCommandes/>} />
+<Route path="/vendeur/commandes/details" element={<PageVendeurCommandesDetail/>} />
+<Route path="/vendeur/commandes/livraison" element={<PageVendeurCommandesBonLivraison/>} />
+<Route path="/vendeur/commandes/facture" element={<PageVendeurCommandesFacture/>} />
+<Route path="/vendeur/parametres" element={<PageVendeurSettings/>} />
+<Route path="/vendeur/statistiques" element={<PageVendeurStatistique/>} />
+<Route path="/vendeur/revenue" element={<PageVendeurRevenue/>} />
 
+<Route path="/vendeur/support" element={<PageVendeurAvisetSupport/>} />
+<Route path="/vendeur/support/avis" element={<PageVendeurAvisetSupport/>} />
 
-      
-    
-     
+<Route path="/vendeur/payement" element={<PageVendeurPay/>} />
+
 
     
     </Routes>

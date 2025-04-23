@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { 
-  FaLeaf, FaSearch, FaShoppingCart, FaUser, FaHeart, 
-  FaBoxOpen, FaMapMarkerAlt, FaStar, FaHeadset, FaBell, 
-  FaHome, FaSignOutAlt 
+  FaBox, FaBoxOpen, FaMoneyBillWave, 
+  FaUserEdit, FaComments, FaSignOutAlt, FaLeaf,
+  FaStar, FaBell, FaUser
 } from 'react-icons/fa';
-import { MdDashboard, MdLocalOffer } from 'react-icons/md';
+import { MdDashboard, MdPayment } from 'react-icons/md';
 import { useNavigate, useLocation } from 'react-router-dom';
-import SearchBar from './SearchBar';
+import SearchBar from '../../client/accueil/SearchBar';
 
 // Animations
 const shimmer = keyframes`
@@ -39,7 +39,6 @@ const Sidebar = styled.div`
   position: relative;
   z-index: 10;
   
-  /* Style de la barre de défilement */
   &::-webkit-scrollbar {
     width: 6px;
   }
@@ -118,7 +117,6 @@ const ContentWrapper = styled.div`
   padding: 2.5rem;
   position: relative;
   
-  /* Style de la barre de défilement */
   &::-webkit-scrollbar {
     width: 8px;
   }
@@ -280,24 +278,25 @@ const NotificationBadge = styled.span`
   padding: 0 5px;
 `;
 
-const DashboardLayout = ({ children }) => {
-  const [cartItems, setCartItems] = useState(3);
-  const [notifications, setNotifications] = useState(2);
+const Dashboard = ({ children }) => {
+  const [newOrders, setNewOrders] = useState(5);
+  const [notifications, setNotifications] = useState(3);
+  const [pendingReviews, setPendingReviews] = useState(2);
   const navigate = useNavigate();
   const location = useLocation();
 
   const getActiveTab = () => {
     const path = location.pathname;
     if (path.includes('/products')) return 'products';
-    if (path.includes('/promotions')) return 'promotions';
-    if (path.includes('/cart')) return 'cart';
+    if (path.includes('/categories')) return 'categories';
     if (path.includes('/orders')) return 'orders';
-    if (path.includes('/favorites')) return 'favorites';
-    if (path.includes('/addresses')) return 'addresses';
+    if (path.includes('/payments')) return 'payments';
+    if (path.includes('/shop')) return 'shop';
+    if (path.includes('/delivery')) return 'delivery';
     if (path.includes('/reviews')) return 'reviews';
-    if (path.includes('/account')) return 'account';
     if (path.includes('/support')) return 'support';
     if (path.includes('/notifications')) return 'notifications';
+    if (path.includes('/account')) return 'account';
     return 'dashboard';
   };
 
@@ -321,30 +320,38 @@ const DashboardLayout = ({ children }) => {
         </LogoContainer>
         
         {/* Navigation principale */}
-        <NavItem active={activeTab === 'dashboard'} onClick={() => handleNavigation('/client')}>
+        <NavItem active={activeTab === 'dashboard'} onClick={() => handleNavigation('/vendeur')}>
           <MdDashboard /> Tableau de bord
         </NavItem>
         
-        {/* Section Achats */}
-        <NavSectionTitle>Achats</NavSectionTitle>
-        <NavItem active={activeTab === 'products'} onClick={() => handleNavigation('/client/dashboard')}>
-          <FaSearch /> Produits
+        {/* Section Produits */}
+        <NavSectionTitle>Gestion des Produits</NavSectionTitle>
+        <NavItem active={activeTab === 'products'} onClick={() => handleNavigation('/vendeur/produits')}>
+          <FaBox /> Mes Produits
         </NavItem>
-        
         
         {/* Section Commandes */}
-        <NavSectionTitle>Mes Commandes</NavSectionTitle>
-        <NavItem active={activeTab === 'cart'} onClick={() => handleNavigation('/client/panier')}>
-          <FaShoppingCart /> Panier {cartItems > 0 && <NotificationBadge>{cartItems}</NotificationBadge>}
+        <NavSectionTitle>Commandes</NavSectionTitle>
+        <NavItem active={activeTab === 'orders'} onClick={() => handleNavigation('/vendeur/commande')}>
+          <FaBoxOpen /> Commandes {newOrders > 0 && <NotificationBadge>{newOrders}</NotificationBadge>}
         </NavItem>
-        <NavItem active={activeTab === 'orders'} onClick={() => handleNavigation('/client/historique')}>
-          <FaBoxOpen /> Historique
+        
+        {/* Section Paiements */}
+        <NavSectionTitle>Paiements & Revenus</NavSectionTitle>
+        <NavItem active={activeTab === 'payments'} onClick={() => handleNavigation('/vendeur/revenue')}>
+          <FaMoneyBillWave /> Revenus et Retraits
+        </NavItem>
+        
+        {/* Section Interactions */}
+        <NavSectionTitle>Interactions</NavSectionTitle>
+        <NavItem active={activeTab === 'reviews'} onClick={() => handleNavigation('/vendeur/support')}>
+          <FaStar /> Avis et Support {pendingReviews > 0 && <NotificationBadge>{pendingReviews}</NotificationBadge>}
         </NavItem>
         
         {/* Section Compte */}
-        <NavSectionTitle>Mon Compte</NavSectionTitle>
-        <NavItem active={activeTab === 'account'} onClick={() => handleNavigation('/client/compte')}>
-          <FaUser /> Mon Profil
+        <NavSectionTitle>Compte</NavSectionTitle>
+        <NavItem active={activeTab === 'account'} onClick={() => handleNavigation('/vendeur/parametres')}>
+          <FaUserEdit /> Mon compte
         </NavItem>
         
         <LogoutButton onClick={handleLogout}>
@@ -354,18 +361,18 @@ const DashboardLayout = ({ children }) => {
       
       <MainContent>
         <Header>
-          <SearchBar />
+          <SearchBar placeholder="Rechercher parmi vos produits..." />
           
           <UserActions>
-            <div onClick={() => handleNavigation('/cart')} title="Panier">
-              <FaShoppingCart />
-              {cartItems > 0 && <span>{cartItems}</span>}
+            <div onClick={() => handleNavigation('/vendeur/commandes')} title="Commandes">
+              <FaBoxOpen />
+              {newOrders > 0 && <span>{newOrders}</span>}
             </div>
-            <div onClick={() => handleNavigation('/notifications')} title="Notifications">
+            <div onClick={() => handleNavigation('/vendeur/notifications')} title="Notifications">
               <FaBell />
               {notifications > 0 && <span>{notifications}</span>}
             </div>
-            <div onClick={() => handleNavigation('/account')} title="Mon compte">
+            <div onClick={() => handleNavigation('/vendeur/parametres')} title="Mon compte">
               <FaUser />
             </div>
           </UserActions>
@@ -379,4 +386,4 @@ const DashboardLayout = ({ children }) => {
   );
 };
 
-export default DashboardLayout;
+export default Dashboard;
