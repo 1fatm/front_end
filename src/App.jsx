@@ -18,7 +18,6 @@ import PageClientHistorique from './pages/client/commande/Historique'
 import PageClientCompte from './pages/client/compte/ComptePage'
 import PageVendeurP from './pages/vendeur/accueil/Accueil'
 
-import PageVendeurPay from './components/seller/Payments/RevenueStats'
 
 import PageVendeurProduitsForm from './pages/vendeur/Produits/ProductForm'
 import PageVendeurProduits from './pages/vendeur/Produits/ProductList'
@@ -76,7 +75,7 @@ export default function App() {
 <Route path="/vendeur/support" element={<PageVendeurAvisetSupport/>} />
 <Route path="/vendeur/support/avis" element={<PageVendeurAvisetSupport/>} />
 
-<Route path="/vendeur/payement" element={<PageVendeurPay/>} />
+
 
 
     
